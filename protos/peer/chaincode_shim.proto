@@ -109,8 +109,8 @@ message QueryResponse {
 // Interface that provides support to chaincode execution. ChaincodeContext
 // provides the context necessary for the server to respond appropriately.
 service ChaincodeSupport {
-
+    //zmm: chaincode向peer注册自己
     rpc Register(stream ChaincodeMessage) returns (stream ChaincodeMessage) {}
-
+    //zmm: ??? 第一讲中的dev模式，自己起一个chaincode向peer注册自己，debug，如何实现？
 
 }

@@ -73,7 +73,7 @@ func (s *SystemChannel) ProcessNormalMsg(msg *cb.Envelope) (configSeq uint64, er
 
 	return s.StandardChannel.ProcessNormalMsg(msg)
 }
-
+//zmm: ??? ProcessConfigUpdateMsg() 和下面的ProcessConfigMsg() 什么区别？什么时候被调用？
 // ProcessConfigUpdateMsg handles messages of type CONFIG_UPDATE either for the system channel itself
 // or, for channel creation.  In the channel creation case, the CONFIG_UPDATE is wrapped into a resulting
 // ORDERER_TRANSACTION, and in the standard CONFIG_UPDATE case, a resulting CONFIG message

@@ -87,7 +87,7 @@ func GetManagerForChain(chainID string) msp.MSPManager {
 	defer m.Unlock()
 
 	mspMgr, ok := mspMap[chainID]
-	if !ok {
+	if !ok {//zmm: ??? 如果新创建，Setup方法何时调用
 		mspLogger.Debugf("Created new msp manager for channel `%s`", chainID)
 		mspMgmtMgr := &mspMgmtMgr{msp.NewMSPManager(), false}
 		mspMap[chainID] = mspMgmtMgr

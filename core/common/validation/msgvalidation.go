@@ -158,7 +158,7 @@ func checkSignatureFromCreator(creatorBytes []byte, sig []byte, msg []byte, Chai
 		return errors.New("nil arguments")
 	}
 
-	mspObj := mspmgmt.GetIdentityDeserializer(ChainID)
+	mspObj := mspmgmt.GetIdentityDeserializer(ChainID) //zmm: ??? 尚未找到初始化mspObj位置，也不知道具体是哪个实现类
 	if mspObj == nil {
 		return errors.Errorf("could not get msp for channel [%s]", ChainID)
 	}
@@ -172,7 +172,7 @@ func checkSignatureFromCreator(creatorBytes []byte, sig []byte, msg []byte, Chai
 	putilsLogger.Debugf("creator is %s", creator.GetIdentifier())
 
 	// ensure that creator is a valid certificate
-	err = creator.Validate()
+	err = creator.Validate() //zmm: ??? 如何实现
 	if err != nil {
 		return errors.WithMessage(err, "creator certificate is not valid")
 	}
@@ -180,7 +180,7 @@ func checkSignatureFromCreator(creatorBytes []byte, sig []byte, msg []byte, Chai
 	putilsLogger.Debugf("creator is valid")
 
 	// validate the signature
-	err = creator.Verify(msg, sig)
+	err = creator.Verify(msg, sig) //zmm: 验证proposal签名
 	if err != nil {
 		return errors.WithMessage(err, "creator's signature over the proposal is not valid")
 	}

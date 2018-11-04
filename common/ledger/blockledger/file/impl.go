@@ -116,7 +116,7 @@ func (fl *FileLedger) Iterator(startPosition *ab.SeekPosition) (blockledger.Iter
 		return &blockledger.NotFoundErrorIterator{}, 0
 	}
 
-	iterator, err := fl.blockStore.RetrieveBlocks(startingBlockNumber)
+	iterator, err := fl.blockStore.RetrieveBlocks(startingBlockNumber)  //zmm: TOSEE
 	if err != nil {
 		return &blockledger.NotFoundErrorIterator{}, 0
 	}

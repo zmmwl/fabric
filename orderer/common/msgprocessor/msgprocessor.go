@@ -48,11 +48,11 @@ const (
 
 	// ConfigUpdateMsg indicates messages of type CONFIG_UPDATE.
 	// Messages of this type should be processed by ProcessConfigUpdateMsg.
-	ConfigUpdateMsg
+	ConfigUpdateMsg //zmm: ??? 具体是什么MSG
 
 	// ConfigMsg indicates message of type ORDERER_TRANSACTION or CONFIG.
 	// Messages of this type should be processed by ProcessConfigMsg
-	ConfigMsg
+	ConfigMsg //zmm: ??? 具体是什么MSG
 )
 
 // Processor provides the methods necessary to classify and process any message which

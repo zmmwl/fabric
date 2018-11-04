@@ -245,7 +245,7 @@ func initializeLocalMsp(conf *localconfig.TopLevel) {
 
 func initializeMultichannelRegistrar(conf *localconfig.TopLevel, signer crypto.LocalSigner,
 	callbacks ...func(bundle *channelconfig.Bundle)) *multichannel.Registrar {
-	lf, _ := createLedgerFactory(conf)
+	lf, _ := createLedgerFactory(conf)  //zmm: ledgerfactory creation
 	// Are we bootstrapping?
 	if len(lf.ChainIDs()) == 0 {
 		initializeBootstrapChannel(conf, lf)
@@ -257,7 +257,7 @@ func initializeMultichannelRegistrar(conf *localconfig.TopLevel, signer crypto.L
 	consenters["solo"] = solo.New()
 	consenters["kafka"] = kafka.New(conf.Kafka)
 
-	return multichannel.NewRegistrar(lf, consenters, signer, callbacks...)
+	return multichannel.NewRegistrar(lf, consenters, signer, callbacks...)  //zmm: registrar creation
 }
 
 func updateTrustedRoots(srv *comm.GRPCServer, rootCASupport *comm.CASupport,

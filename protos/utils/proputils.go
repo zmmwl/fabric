@@ -329,7 +329,7 @@ func GetBytesProposalResponsePayload(hash []byte, response *peer.Response, resul
 		return nil, err
 	}
 
-	prp := &peer.ProposalResponsePayload{Extension: cActBytes, ProposalHash: hash}
+	prp := &peer.ProposalResponsePayload{Extension: cActBytes, ProposalHash: hash} //zmm: 构造ProposalResponsePayload
 	prpBytes, err := proto.Marshal(prp)
 	return prpBytes, err
 }

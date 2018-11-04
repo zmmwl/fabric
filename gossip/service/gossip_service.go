@@ -150,7 +150,7 @@ func InitGossipServiceCustomDeliveryFactory(peerIdentity []byte, endpoint string
 
 		gossip, err = integration.NewGossipComponent(peerIdentity, endpoint, s, secAdv,
 			mcs, secureDialOpts, certs, bootPeers...)
-		gossipServiceInstance = &gossipServiceImpl{
+		gossipServiceInstance = &gossipServiceImpl{ //zmm: gossip service creation
 			mcs:             mcs,
 			gossipSvc:       gossip,
 			privateHandlers: make(map[string]privateHandler),

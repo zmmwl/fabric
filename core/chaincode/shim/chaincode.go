@@ -126,8 +126,14 @@ func userChaincodeStreamGetter(name string) (PeerChaincodeStream, error) {
 	return stream, nil
 }
 
-// chaincodes.
+// mock stub
 func Start(cc Chaincode) error {
+	MockStart(cc);
+	return nil;
+}
+
+// chaincodes.
+func Startx(cc Chaincode) error {
 	// If Start() is called, we assume this is a standalone chaincode and set
 	// up formatted logging.
 	SetupChaincodeLogging()

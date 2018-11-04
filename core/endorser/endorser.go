@@ -333,7 +333,7 @@ func (e *Endorser) SimulateProposal(ctx context.Context, chainID string, txid st
 	return cdLedger, res, pubSimResBytes, ccevent, nil
 }
 
-// endorse the proposal by calling the ESCC
+// endorse the proposal by calling the ESCC //zmm: ??? 如何call ESCC
 func (e *Endorser) endorseProposal(_ context.Context, chainID string, txid string, signedProp *pb.SignedProposal, proposal *pb.Proposal, response *pb.Response, simRes []byte, event *pb.ChaincodeEvent, visibility []byte, ccid *pb.ChaincodeID, txsim ledger.TxSimulator, cd ccprovider.ChaincodeDefinition) (*pb.ProposalResponse, error) {
 	endorserLogger.Debugf("[%s][%s] Entry chaincode: %s", chainID, shorttxid(txid), ccid)
 	defer endorserLogger.Debugf("[%s][%s] Exit", chainID, shorttxid(txid))
@@ -345,7 +345,7 @@ func (e *Endorser) endorseProposal(_ context.Context, chainID string, txid strin
 	if isSysCC {
 		escc = "escc"
 	} else {
-		escc = cd.Endorsement()
+		escc = cd.Endorsement() //zmm: ??? 还有什么类型
 	}
 
 	endorserLogger.Debugf("[%s][%s] escc for chaincode %s is %s", chainID, shorttxid(txid), ccid, escc)
@@ -381,14 +381,14 @@ func (e *Endorser) endorseProposal(_ context.Context, chainID string, txid strin
 		Proposal:       proposal,
 		TxID:           txid,
 	}
-	return e.s.EndorseWithPlugin(ctx)
+	return e.s.EndorseWithPlugin(ctx) //zmm: ???  EndorseWithPlugin实现类为什么不能直接搜索到
 }
 
 // preProcess checks the tx proposal headers, uniqueness and ACL
 func (e *Endorser) preProcess(signedProp *pb.SignedProposal) (*validateResult, error) {
 	vr := &validateResult{}
 	// at first, we check whether the message is valid
-	prop, hdr, hdrExt, err := validation.ValidateProposalMessage(signedProp)
+	prop, hdr, hdrExt, err := validation.ValidateProposalMessage(signedProp) //zmm: hdrExt为header的extension，包含PayloadVisibility 和 chaincodeID[path,name,version]
 
 	if err != nil {
 		vr.resp = &pb.ProposalResponse{Response: &pb.Response{Status: 500, Message: err.Error()}}
@@ -448,7 +448,7 @@ func (e *Endorser) preProcess(signedProp *pb.SignedProposal) (*validateResult, e
 	return vr, nil
 }
 
-// ProcessProposal process the Proposal
+// ProcessProposal process the Proposal  //zmm: ProcessProposal入口
 func (e *Endorser) ProcessProposal(ctx context.Context, signedProp *pb.SignedProposal) (*pb.ProposalResponse, error) {
 	addr := util.ExtractRemoteAddress(ctx)
 	endorserLogger.Debug("Entering: request from", addr)

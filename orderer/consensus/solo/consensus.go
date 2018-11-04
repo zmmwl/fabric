@@ -116,7 +116,7 @@ func (ch *chain) Errored() <-chan struct{} {
 	return ch.exitChan
 }
 
-func (ch *chain) main() {
+func (ch *chain) main() { //zmm: ??? solo的consensus何时被调用？
 	var timer <-chan time.Time
 	var err error
 

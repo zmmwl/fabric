@@ -233,7 +233,7 @@ func InitChain(cid string) {
 	if chainInitializer != nil {
 		// Initialize chaincode, namely deploy system CC
 		peerLogger.Debugf("Init chain %s", cid)
-		chainInitializer(cid)
+		chainInitializer(cid) //zmm: peer初始化时赋值这个func: start.go line:356 为每一个新的channel安装系统链码, 具体加载哪些在importsysccs.go里定义
 	}
 }
 
@@ -412,10 +412,10 @@ func CreateChainFromBlock(cb *common.Block, ccp ccprovider.ChaincodeProvider, sc
 	}
 
 	var l ledger.PeerLedger
-	if l, err = ledgermgmt.CreateLedger(cb); err != nil {
+	if l, err = ledgermgmt.CreateLedger(cb); err != nil { //zmm: TOSEE
 		return fmt.Errorf("Cannot create ledger from genesis block, due to %s", err)
 	}
-
+	//zmm: TOSEE
 	return createChain(cid, l, cb, ccp, sccp, pluginMapper)
 }
 

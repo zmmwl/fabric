@@ -76,5 +76,5 @@ service AtomicBroadcast {
     rpc Broadcast(stream common.Envelope) returns (stream BroadcastResponse) {}
 
     // deliver first requires an Envelope of type DELIVER_SEEK_INFO with Payload data as a mashaled SeekInfo message, then a stream of block replies is received.
-    rpc Deliver(stream common.Envelope) returns (stream DeliverResponse) {}
+    rpc Deliver(stream common.Envelope) returns (stream DeliverResponse) {}  //zmm: ??? order调用peer还是order被调用
 }

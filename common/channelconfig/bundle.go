@@ -29,7 +29,7 @@ const RootGroupKey = "Channel"
 // the config sequence, the policy manager etc. will always return exactly the
 // same value.  The Bundle structure is immutable and will always be replaced in its
 // entirety, with new backing memory.
-type Bundle struct {
+type Bundle struct {  //zmm: bundle的定义: view of the channel configuration
 	policyManager   policies.Manager
 	mspManager      msp.MSPManager
 	channelConfig   *ChannelConfig

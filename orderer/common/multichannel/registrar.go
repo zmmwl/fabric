@@ -144,11 +144,11 @@ func NewRegistrar(ledgerFactory blockledger.Factory, consenters map[string]conse
 		ledgerResources := r.newLedgerResources(configTx)
 		chainID := ledgerResources.ConfigtxValidator().ChainID()
 
-		if _, ok := ledgerResources.ConsortiumsConfig(); ok {
+		if _, ok := ledgerResources.ConsortiumsConfig(); ok { //zmm: ConsortiumsConfig() true说明是系统链
 			if r.systemChannelID != "" {
 				logger.Panicf("There appear to be two system chains %s and %s", r.systemChannelID, chainID)
 			}
-			chain := newChainSupport(
+			chain := newChainSupport(  //zmm: chainsupport creation
 				r,
 				ledgerResources,
 				consenters,
@@ -286,7 +286,7 @@ func (r *Registrar) newChain(configtx *cb.Envelope) {
 	logger.Infof("Created and starting new chain %s", chainID)
 
 	newChains[string(chainID)] = cs
-	cs.start()
+	cs.start() //zmm: start consensus.go main method
 
 	r.chains = newChains
 }

@@ -48,7 +48,7 @@ type MapBasedPluginMapper map[string]endorsement.PluginFactory
 
 // PluginFactoryByName returns a plugin factory for the given plugin name, or nil if not found
 func (m MapBasedPluginMapper) PluginFactoryByName(name PluginName) endorsement.PluginFactory {
-	return m[string(name)]
+	return m[string(name)] //zmm: ??? 何时初始化
 }
 
 // Context defines the data that is related to an in-flight endorsement
@@ -158,7 +158,7 @@ type PluginEndorser struct {
 	TransientStoreRetriever
 }
 
-// EndorseWithPlugin endorses the response with a plugin
+// EndorseWithPlugin endorses the response with a plugin //zmm: EndorseWithPlugin实现类
 func (pe *PluginEndorser) EndorseWithPlugin(ctx Context) (*pb.ProposalResponse, error) {
 	endorserLogger.Debug("Entering endorsement for", ctx)
 
@@ -170,7 +170,7 @@ func (pe *PluginEndorser) EndorseWithPlugin(ctx Context) (*pb.ProposalResponse, 
 		return &pb.ProposalResponse{Response: ctx.Response}, nil
 	}
 
-	plugin, err := pe.getOrCreatePlugin(PluginName(ctx.PluginName), ctx.Channel)
+	plugin, err := pe.getOrCreatePlugin(PluginName(ctx.PluginName), ctx.Channel) //zmm: PluginName 是 "escc"
 	if err != nil {
 		endorserLogger.Warning("Endorsement with plugin for", ctx, " failed:", err)
 		return nil, errors.Errorf("plugin with name %s could not be used: %v", ctx.PluginName, err)
@@ -182,7 +182,7 @@ func (pe *PluginEndorser) EndorseWithPlugin(ctx Context) (*pb.ProposalResponse, 
 		return nil, errors.Wrap(err, "failed assembling proposal response payload")
 	}
 
-	endorsement, prpBytes, err := plugin.Endorse(prpBytes, ctx.SignedProposal)
+	endorsement, prpBytes, err := plugin.Endorse(prpBytes, ctx.SignedProposal) //zmm: ??? 实现类待确定
 	if err != nil {
 		endorserLogger.Warning("Endorsement with plugin for", ctx, " failed:", err)
 		return nil, errors.WithStack(err)

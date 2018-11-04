@@ -119,10 +119,10 @@ func (bh *handlerImpl) Handle(srv ab.AtomicBroadcast_BroadcastServer) error {
 				logger.Warningf("[channel: %s] Rejecting broadcast of normal message from %s with SERVICE_UNAVAILABLE: rejected by Order: %s", chdr.ChannelId, addr, err)
 				return srv.Send(&ab.BroadcastResponse{Status: cb.Status_SERVICE_UNAVAILABLE, Info: err.Error()})
 			}
-		} else { // isConfig
+		} else { // isConfig //zmm: means Config Update
 			logger.Debugf("[channel: %s] Broadcast is processing config update message from %s", chdr.ChannelId, addr)
 
-			config, configSeq, err := processor.ProcessConfigUpdateMsg(msg)
+			config, configSeq, err := processor.ProcessConfigUpdateMsg(msg)  //zmm: ??? 是不是Systemchannel的ProcessConfigUpdateMsg方法, 如看是，下面又会导致ProcessConfigMsg的调用？
 			if err != nil {
 				logger.Warningf("[channel: %s] Rejecting broadcast of config message from %s because of error: %s", chdr.ChannelId, addr, err)
 				return srv.Send(&ab.BroadcastResponse{Status: ClassifyError(err), Info: err.Error()})
