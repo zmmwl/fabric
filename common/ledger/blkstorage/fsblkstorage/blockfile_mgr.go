@@ -95,7 +95,7 @@ At start up a new manager:
 		-- syncIndex comparing the last block indexed to what is in the FS
 		-- If index and file system are not in sync, syncs index from the FS
   *)  Updates blockchain info used by the APIs
-*/
+*/ //zmm: peer的fileMgr创建入口 也是order的？
 func newBlockfileMgr(id string, conf *Conf, indexConfig *blkstorage.IndexConfig, indexStore *leveldbhelper.DBHandle) *blockfileMgr {
 	logger.Debugf("newBlockfileMgr() initializing file-based block storage for ledger: %s ", id)
 	//Determine the root directory for the blockfile storage, if it does not exist create it

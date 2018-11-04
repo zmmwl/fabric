@@ -133,7 +133,7 @@ func (provider *Provider) Open(ledgerID string) (ledger.PeerLedger, error) {
 	}
 	return provider.openInternal(ledgerID)
 }
-
+// peer 初始化ledger，需要精读
 func (provider *Provider) openInternal(ledgerID string) (ledger.PeerLedger, error) {
 	// Get the block store for a chain/ledger
 	blockStore, err := provider.ledgerStoreProvider.Open(ledgerID)

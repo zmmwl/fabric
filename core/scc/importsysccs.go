@@ -16,7 +16,7 @@ import (
 )
 
 func builtInSystemChaincodes(ccp ccprovider.ChaincodeProvider, p *Provider, aclProvider aclmgmt.ACLProvider) []*SystemChaincode {
-	return []*SystemChaincode{
+	return []*SystemChaincode{ //zmm: 系统chaincode定义
 		{
 			Enabled:           true,
 			Name:              "cscc",

@@ -156,7 +156,7 @@ func (cs *ChaincodeSupport) HandleChaincodeStream(ctxt context.Context, stream c
 
 // Register the bidi stream entry point called by chaincode to register with the Peer.
 func (cs *ChaincodeSupport) Register(stream pb.ChaincodeSupport_RegisterServer) error {
-	return cs.HandleChaincodeStream(stream.Context(), stream)
+	return cs.HandleChaincodeStream(stream.Context(), stream) //zmm: chaincode向peer注册自己
 }
 
 // createCCMessage creates a transaction message.

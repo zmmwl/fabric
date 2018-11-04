@@ -337,7 +337,7 @@ func serve(args []string) error {
 	//initialize system chaincodes
 
 	//deploy system chaincodes
-	sccp.DeploySysCCs("", ccp)
+	sccp.DeploySysCCs("", ccp) //zmm: TOSEE
 	logger.Infof("Deployed system chaincodes")
 
 	installedCCs := func() ([]ccdef.InstalledChaincode, error) {
@@ -605,7 +605,7 @@ func registerChaincodeSupport(grpcServer *comm.GRPCServer, ccEndpoint string, ca
 	authenticator := accesscontrol.NewAuthenticator(ca)
 	ipRegistry := inproccontroller.NewRegistry()
 	sccp := scc.NewProvider(peer.Default, peer.DefaultSupport, ipRegistry)
-	chaincodeSupport := chaincode.NewChaincodeSupport(
+	chaincodeSupport := chaincode.NewChaincodeSupport( //zmm: chaincode向peer注册自己
 		chaincode.GlobalConfig(),
 		ccEndpoint,
 		userRunsCC,
