@@ -90,7 +90,7 @@ func (bh *handlerImpl) Handle(srv ab.AtomicBroadcast_BroadcastServer) error {
 			return err
 		}
 
-		chdr, isConfig, processor, err := bh.sm.BroadcastChannelSupport(msg)
+		chdr, isConfig, processor, err := bh.sm.BroadcastChannelSupport(msg) //zmm: processor就是Registrar创建时为每个chain建的ChainSupport, 就是每一个都start()那个
 		if err != nil {
 			channelID := "<malformed_header>"
 			if chdr != nil {

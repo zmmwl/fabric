@@ -71,7 +71,7 @@ func (rs *responseSender) SendBlockResponse(block *cb.Block) error {
 func NewServer(r *multichannel.Registrar, _ crypto.LocalSigner, debug *localconfig.Debug, timeWindow time.Duration, mutualTLS bool) ab.AtomicBroadcastServer {
 	s := &server{
 		dh:        deliver.NewHandler(deliverSupport{Registrar: r}, timeWindow, mutualTLS),
-		bh:        broadcast.NewHandlerImpl(broadcastSupport{Registrar: r}),
+		bh:        broadcast.NewHandlerImpl(broadcastSupport{Registrar: r}), //zmm: 设置 bh=handlerImpl{sm:broadcastSupport{Registrar: r}}
 		debug:     debug,
 		Registrar: r,
 	}

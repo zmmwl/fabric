@@ -98,7 +98,7 @@ func Start(cmd string, conf *localconfig.TopLevel) {
 		}
 	}
 
-	manager := initializeMultichannelRegistrar(conf, signer, tlsCallback)
+	manager := initializeMultichannelRegistrar(conf, signer, tlsCallback)  //zmm: 初始化启动所有的chain.Start()
 	mutualTLS := serverConfig.SecOpts.UseTLS && serverConfig.SecOpts.RequireClientCert
 	server := NewServer(manager, signer, &conf.Debug, conf.General.Authentication.TimeWindow, mutualTLS)
 

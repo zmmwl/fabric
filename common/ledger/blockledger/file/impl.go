@@ -54,7 +54,7 @@ type FileLedgerBlockStore interface {
 
 // NewFileLedger creates a new FileLedger for interaction with the ledger
 func NewFileLedger(blockStore FileLedgerBlockStore) *FileLedger {
-	return &FileLedger{blockStore: blockStore, signal: make(chan struct{})}
+	return &FileLedger{blockStore: blockStore, signal: make(chan struct{})} //zmm: FileLedger creation
 }
 
 type fileLedgerIterator struct {

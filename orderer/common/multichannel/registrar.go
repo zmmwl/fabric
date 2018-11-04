@@ -141,7 +141,7 @@ func NewRegistrar(ledgerFactory blockledger.Factory, consenters map[string]conse
 		if configTx == nil {
 			logger.Panic("Programming error, configTx should never be nil here")
 		}
-		ledgerResources := r.newLedgerResources(configTx)
+		ledgerResources := r.newLedgerResources(configTx) //zmm: ledgerResource 继承了 Ledger,对文件类型来说是FileLedger，因此有Append方法添加block
 		chainID := ledgerResources.ConfigtxValidator().ChainID()
 
 		if _, ok := ledgerResources.ConsortiumsConfig(); ok { //zmm: ConsortiumsConfig() true说明是系统链
@@ -172,7 +172,7 @@ func NewRegistrar(ledgerFactory blockledger.Factory, consenters map[string]conse
 			r.systemChannelID = chainID
 			r.systemChannel = chain
 			// We delay starting this chain, as it might try to copy and replace the chains map via newChain before the map is fully built
-			defer chain.start()
+			defer chain.start() //zmm: chain = ChainSupport{ledgerResources{ledger}}
 		} else {
 			logger.Debugf("Starting chain: %s", chainID)
 			chain := newChainSupport(
@@ -286,7 +286,7 @@ func (r *Registrar) newChain(configtx *cb.Envelope) {
 	logger.Infof("Created and starting new chain %s", chainID)
 
 	newChains[string(chainID)] = cs
-	cs.start() //zmm: start consensus.go main method
+	cs.start()
 
 	r.chains = newChains
 }
