@@ -52,7 +52,7 @@ type Provider struct {
 
 // NewProvider instantiates a new Provider.
 // This is not thread-safe and assumed to be synchronized be the caller
-func NewProvider() (ledger.PeerLedgerProvider, error) {
+func NewProvider() (ledger.PeerLedgerProvider, error) {//zmm: 初始化peer各种db provider
 
 	logger.Info("Initializing ledger provider")
 
@@ -133,7 +133,7 @@ func (provider *Provider) Open(ledgerID string) (ledger.PeerLedger, error) {
 	}
 	return provider.openInternal(ledgerID)
 }
-// peer 初始化ledger，需要精读
+//zmm: peer 初始化ledger，需要精读
 func (provider *Provider) openInternal(ledgerID string) (ledger.PeerLedger, error) {
 	// Get the block store for a chain/ledger
 	blockStore, err := provider.ledgerStoreProvider.Open(ledgerID)

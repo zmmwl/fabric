@@ -39,7 +39,7 @@ type CommonStorageDBProvider struct {
 func NewCommonStorageDBProvider() (DBProvider, error) {
 	var vdbProvider statedb.VersionedDBProvider
 	var err error
-	if ledgerconfig.IsCouchDBEnabled() {
+	if ledgerconfig.IsCouchDBEnabled() {//zmm: couchDB or levelDB
 		if vdbProvider, err = statecouchdb.NewVersionedDBProvider(); err != nil {
 			return nil, err
 		}

@@ -21,7 +21,7 @@ const (
 )
 
 // txProcessor implements the interface 'github.com/hyperledger/fabric/core/ledger/customtx/Processor'
-type configtxProcessor struct {
+type configtxProcessor struct { //zmm: actual configxProcessor
 }
 
 // newTxProcessor constructs a new instance of txProcessor
