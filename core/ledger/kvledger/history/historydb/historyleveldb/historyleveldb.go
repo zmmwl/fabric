@@ -26,7 +26,7 @@ var savePointKey = []byte{0x00}
 var emptyValue = []byte{}
 
 // HistoryDBProvider implements interface HistoryDBProvider
-type HistoryDBProvider struct {
+type HistoryDBProvider struct {//zmm: historyDBProvider
 	dbProvider *leveldbhelper.Provider
 }
 
@@ -114,7 +114,7 @@ func (historyDB *historyDB) Commit(block *common.Block) error {
 		if common.HeaderType(chdr.Type) == common.HeaderType_ENDORSER_TRANSACTION {
 
 			// extract actions from the envelope message
-			respPayload, err := putils.GetActionFromEnvelope(envBytes)
+			respPayload, err := putils.GetActionFromEnvelope(envBytes) //zmm: respPayload is extension
 			if err != nil {
 				return err
 			}
@@ -129,7 +129,7 @@ func (historyDB *historyDB) Commit(block *common.Block) error {
 			}
 			// for each transaction, loop through the namespaces and writesets
 			// and add a history record for each write
-			for _, nsRWSet := range txRWSet.NsRwSets {
+			for _, nsRWSet := range txRWSet.NsRwSets { //zmm: write history DB
 				ns := nsRWSet.NameSpace
 
 				for _, kvWrite := range nsRWSet.KvRwSet.Writes {

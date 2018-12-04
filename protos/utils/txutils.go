@@ -54,7 +54,7 @@ func GetPayloads(txActions *peer.TransactionAction) (*peer.ChaincodeActionPayloa
 	}
 
 	respPayload := &peer.ChaincodeAction{}
-	err = proto.Unmarshal(pRespPayload.Extension, respPayload)
+	err = proto.Unmarshal(pRespPayload.Extension, respPayload) //zmm: endorse result
 	if err != nil {
 		return ccPayload, nil, err
 	}

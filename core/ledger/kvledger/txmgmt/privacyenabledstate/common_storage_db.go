@@ -31,7 +31,7 @@ const (
 )
 
 // CommonStorageDBProvider implements interface DBProvider
-type CommonStorageDBProvider struct {
+type CommonStorageDBProvider struct {//zmm: vdbprovider
 	statedb.VersionedDBProvider
 }
 

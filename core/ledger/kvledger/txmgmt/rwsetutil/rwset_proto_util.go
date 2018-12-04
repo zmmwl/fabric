@@ -91,7 +91,7 @@ func (txRwSet *TxRwSet) FromProtoBytes(protoBytes []byte) error {
 	if err = proto.Unmarshal(protoBytes, protoMsg); err != nil {
 		return err
 	}
-	if txRwSetTemp, err = TxRwSetFromProtoMsg(protoMsg); err != nil {
+	if txRwSetTemp, err = TxRwSetFromProtoMsg(protoMsg); err != nil { //protoMsg is result
 		return err
 	}
 	txRwSet.NsRwSets = txRwSetTemp.NsRwSets
@@ -179,7 +179,7 @@ func nsRwSetFromProtoMsg(protoMsg *rwset.NsReadWriteSet) (*NsRwSet, error) {
 		}
 		nsRwSet.CollHashedRwSets = append(nsRwSet.CollHashedRwSets, collHashedRwSet)
 	}
-	return nsRwSet, nil
+	return nsRwSet, nil //zmm: important
 }
 
 func (collHashedRwSet *CollHashedRwSet) toProtoMsg() (*rwset.CollectionHashedReadWriteSet, error) {
