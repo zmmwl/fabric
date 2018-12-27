@@ -506,7 +506,7 @@ func getLDFlagsOpts() string {
 	return staticLDFlagsOpts
 }
 
-func (goPlatform *Platform) GenerateDockerBuild(cds *pb.ChaincodeDeploymentSpec, tw *tar.Writer) error {
+func (goPlatform *Platform) GenerateDockerBuild(cds *pb.ChaincodeDeploymentSpec, tw *tar.Writer) error {//zmm: chaincode docker build
 	spec := cds.ChaincodeSpec
 
 	pkgname, err := decodeUrl(spec)

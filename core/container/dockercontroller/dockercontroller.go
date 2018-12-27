@@ -212,7 +212,7 @@ func (vm *DockerVM) deployImage(client dockerClient, ccid ccintf.CCID,
 	return nil
 }
 
-//Start starts a container using a previously created docker image
+//Start starts a container using a previously created docker image //zmm: start chaincode container, how to created this image before?
 func (vm *DockerVM) Start(ctxt context.Context, ccid ccintf.CCID,
 	args []string, env []string, filesToUpload map[string][]byte, builder container.Builder) error {
 	imageName, err := vm.GetVMNameForDocker(ccid)

@@ -33,7 +33,7 @@ func NewVM() (*VM, error) {
 }
 
 // BuildChaincodeContainer builds the container for the supplied chaincode specification
-func (vm *VM) BuildChaincodeContainer(spec *pb.ChaincodeSpec) error {
+func (vm *VM) BuildChaincodeContainer(spec *pb.ChaincodeSpec) error {//zmm: 这才是真正构造chaincode的image和container
 	codePackage, err := container.GetChaincodePackageBytes(spec)
 	if err != nil {
 		return fmt.Errorf("Error getting chaincode package bytes: %s", err)
