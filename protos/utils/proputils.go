@@ -270,7 +270,7 @@ func CreateChaincodeProposalWithTxIDAndTransient(typ common.HeaderType, chainID 
 
 	// compute txid unless provided by tests
 	if txid == "" {
-		txid, err = ComputeProposalTxID(nonce, creator)
+		txid, err = ComputeProposalTxID(nonce, creator) //zmm: generate txID
 		if err != nil {
 			return nil, "", err
 		}

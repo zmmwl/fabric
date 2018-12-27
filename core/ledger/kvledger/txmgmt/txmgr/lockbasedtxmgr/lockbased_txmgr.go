@@ -84,7 +84,7 @@ func (txmgr *LockBasedTxMgr) NewTxSimulator(txid string) (ledger.TxSimulator, er
 	if err != nil {
 		return nil, err
 	}
-	txmgr.commitRWLock.RLock()
+	txmgr.commitRWLock.RLock()//zmm: commit lock
 	return s, nil
 }
 

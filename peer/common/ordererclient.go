@@ -47,7 +47,7 @@ func (oc *OrdererClient) Broadcast() (ab.AtomicBroadcast_BroadcastClient, error)
 		return nil, errors.WithMessage(err, fmt.Sprintf("orderer client failed to connect to %s", oc.address))
 	}
 	// TODO: check to see if we should actually handle error before returning
-	return ab.NewAtomicBroadcastClient(conn).Broadcast(context.TODO())
+	return ab.NewAtomicBroadcastClient(conn).Broadcast(context.TODO())//zmm: order Broadcast client
 }
 
 // Deliver returns a deliver client for the AtomicBroadcast service

@@ -113,7 +113,7 @@ func chaincodeInvokeOrQuery(cmd *cobra.Command, invoke bool, cf *ChaincodeCmdFac
 	// otherwise, tests can explicitly set their own txid
 	txID := ""
 
-	proposalResp, err := ChaincodeInvokeOrQuery(
+	proposalResp, err := ChaincodeInvokeOrQuery( //zmm: 客户端发起交易入口
 		spec,
 		channelID,
 		txID,

@@ -151,7 +151,7 @@ func CreateSignedTx(proposal *peer.Proposal, signer msp.SigningIdentity, resps .
 	}
 
 	// get header extensions so we have the visibility field
-	hdrExt, err := GetChaincodeHeaderExtension(hdr)
+	hdrExt, err := GetChaincodeHeaderExtension(hdr) //zmm: channel header extension is just chaincodeid
 	if err != nil {
 		return nil, err
 	}
@@ -182,7 +182,7 @@ func CreateSignedTx(proposal *peer.Proposal, signer msp.SigningIdentity, resps .
 	cea := &peer.ChaincodeEndorsedAction{ProposalResponsePayload: resps[0].Payload, Endorsements: endorsements}
 
 	// obtain the bytes of the proposal payload that will go to the transaction
-	propPayloadBytes, err := GetBytesProposalPayloadForTx(pPayl, hdrExt.PayloadVisibility)
+	propPayloadBytes, err := GetBytesProposalPayloadForTx(pPayl, hdrExt.PayloadVisibility) //zmm: 这个方法只是去掉了TransientMap？
 	if err != nil {
 		return nil, err
 	}
