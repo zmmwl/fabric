@@ -90,7 +90,7 @@ func (s *blockfileStream) nextBlockBytes() ([]byte, error) {
 // along with the offset information in the block file.
 // An error `ErrUnexpectedEndOfBlockfile` is returned if a partial written data is detected
 // which is possible towards the tail of the file if a crash had taken place during appending of a block
-func (s *blockfileStream) nextBlockBytesAndPlacementInfo() ([]byte, *blockPlacementInfo, error) {
+func (s *blockfileStream) nextBlockBytesAndPlacementInfo() ([]byte, *blockPlacementInfo, error) {//zmm: 从文件流中读出一个block
 	var lenBytes []byte
 	var err error
 	var fileInfo os.FileInfo
