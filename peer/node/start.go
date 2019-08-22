@@ -618,7 +618,7 @@ func registerChaincodeSupport(grpcServer *comm.GRPCServer, ccEndpoint string, ca
 				viper.GetString("peer.id"),
 				viper.GetString("peer.networkId"),
 			),
-			inproccontroller.ContainerType: ipRegistry,
+			inproccontroller.ContainerType: ipRegistry, //zmm: 定义两种不同的chaincode执行方式：docker or system(in proc)
 		}),
 		sccp,
 	)

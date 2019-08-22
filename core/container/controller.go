@@ -136,7 +136,7 @@ func (b *PlatformBuilder) Build() (io.Reader, error) {
 }
 
 func (si StartContainerReq) Do(ctxt context.Context, v VM) error {
-	return v.Start(ctxt, si.CCID, si.Args, si.Env, si.FilesToUpload, si.Builder)
+	return v.Start(ctxt, si.CCID, si.Args, si.Env, si.FilesToUpload, si.Builder) //zmm: v determine in proc or docker
 }
 
 func (si StartContainerReq) GetCCID() ccintf.CCID {
@@ -162,7 +162,7 @@ func (si StopContainerReq) GetCCID() ccintf.CCID {
 }
 
 func (vmc *VMController) Process(ctxt context.Context, vmtype string, req VMCReq) error {
-	v := vmc.newVM(vmtype)
+	v := vmc.newVM(vmtype) //zmm: 此处使用chaincode两种不同的执行方式docker or system(in proc)
 	ccid := req.GetCCID()
 	id := ccid.GetName()
 

@@ -488,7 +488,7 @@ func (goPlatform *Platform) GenerateDockerfile(cds *pb.ChaincodeDeploymentSpec) 
 
 	var buf []string
 
-	buf = append(buf, "FROM "+cutil.GetDockerfileFromConfig("chaincode.golang.runtime"))
+	buf = append(buf, "FROM "+cutil.GetDockerfileFromConfig("chaincode.golang.runtime")) //zmm: 链码基础镜像
 	buf = append(buf, "ADD binpackage.tar /usr/local/bin")
 
 	dockerFileContents := strings.Join(buf, "\n")

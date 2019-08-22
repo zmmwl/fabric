@@ -194,7 +194,7 @@ func (vm *InprocVM) Start(ctxt context.Context, ccid ccintf.CCID, args []string,
 				inprocLogger.Criticalf("caught panic from chaincode  %s", instName)
 			}
 		}()
-		ipc.launchInProc(ctxt, instName, args, env, ccSupport)
+		ipc.launchInProc(ctxt, instName, args, env, ccSupport) //zmm: launchInProc
 	}()
 
 	return nil
