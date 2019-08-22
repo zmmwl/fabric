@@ -115,7 +115,7 @@ func NewValidatorImpl(channelID string, config *cb.Config, namespace string, pm 
 		return nil, errors.Errorf("error converting config to map: %s", err)
 	}
 
-	return &ValidatorImpl{
+	return &ValidatorImpl{  //zmm said: configtxvalidator
 		namespace:   namespace,
 		pm:          pm,
 		sequence:    config.Sequence,

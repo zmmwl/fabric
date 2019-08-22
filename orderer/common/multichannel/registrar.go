@@ -76,7 +76,7 @@ func (cr *configResources) CreateBundle(channelID string, config *cb.Config) (*c
 	return channelconfig.NewBundle(channelID, config)
 }
 
-func (cr *configResources) Update(bndl *channelconfig.Bundle) {
+func (cr *configResources) Update(bndl *channelconfig.Bundle) {//zmm: 更新config
 	checkResourcesOrPanic(bndl)
 	cr.mutableResources.Update(bndl)
 }
@@ -148,7 +148,7 @@ func NewRegistrar(ledgerFactory blockledger.Factory, consenters map[string]conse
 			if r.systemChannelID != "" {
 				logger.Panicf("There appear to be two system chains %s and %s", r.systemChannelID, chainID)
 			}
-			chain := newChainSupport(  //zmm: chainsupport creation
+			chain := newChainSupport(  //zmm: 创建chainsupport过程中创建Chain
 				r,
 				ledgerResources,
 				consenters,

@@ -45,7 +45,7 @@ func newChainSupport(
 	}
 
 	// Construct limited support needed as a parameter for additional support
-	cs := &ChainSupport{
+	cs := &ChainSupport{//zmm: chain support in order
 		ledgerResources: ledgerResources,
 		LocalSigner:     signer,
 		cutter:          blockcutter.NewReceiverImpl(ledgerResources),
