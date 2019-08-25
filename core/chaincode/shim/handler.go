@@ -726,7 +726,7 @@ func (handler *Handler) handleCreated(msg *pb.ChaincodeMessage, errc chan error)
 }
 
 // handleMessage message handles loop for shim side of chaincode/peer stream.
-func (handler *Handler) handleMessage(msg *pb.ChaincodeMessage, errc chan error) error {
+func (handler *Handler) handleMessage(msg *pb.ChaincodeMessage, errc chan error) error {//zmm: shim handler
 	if msg.Type == pb.ChaincodeMessage_KEEPALIVE {
 		// Received a keep alive message, we don't do anything with it for now
 		return nil

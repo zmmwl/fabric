@@ -162,10 +162,14 @@ func (si StopContainerReq) GetCCID() ccintf.CCID {
 }
 
 func (vmc *VMController) Process(ctxt context.Context, vmtype string, req VMCReq) error {
+
+	vmLogger.Debugf("zmm: Process - vmtype is: ", vmtype)
 	v := vmc.newVM(vmtype) //zmm: 此处使用chaincode两种不同的执行方式docker or system(in proc)
 	ccid := req.GetCCID()
 	id := ccid.GetName()
 
+	vmLogger.Debugf("zmm: VMController.Process - ccid is: ", ccid)
+	vmLogger.Debugf("zmm: VMController.Process - id is: ", id)
 	vmc.lockContainer(id)
 	defer vmc.unlockContainer(id)
 	return req.Do(ctxt, v)

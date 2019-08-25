@@ -154,7 +154,7 @@ type Handler struct {
 }
 
 // handleMessage is called by ProcessStream to dispatch messages.
-func (h *Handler) handleMessage(msg *pb.ChaincodeMessage) error {
+func (h *Handler) handleMessage(msg *pb.ChaincodeMessage) error {//zmm: chaincode handler
 	chaincodeLogger.Debugf("[%s] Fabric side handling ChaincodeMessage of type: %s in state %s", shorttxid(msg.Txid), msg.Type, h.state)
 
 	if msg.Type == pb.ChaincodeMessage_KEEPALIVE {

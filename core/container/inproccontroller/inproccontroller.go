@@ -106,7 +106,7 @@ func (vm *InprocVM) getInstance(ctxt context.Context, ipctemplate *inprocContain
 	return ipc, nil
 }
 
-func (ipc *inprocContainer) launchInProc(ctxt context.Context, id string, args []string, env []string, ccSupport ccintf.CCSupport) error {
+func (ipc *inprocContainer) launchInProc(ctxt context.Context, id string, args []string, env []string, ccSupport ccintf.CCSupport) error {//zmm: 启动scc in proc
 	peerRcvCCSend := make(chan *pb.ChaincodeMessage)
 	ccRcvPeerSend := make(chan *pb.ChaincodeMessage)
 	var err error
@@ -160,6 +160,8 @@ func (ipc *inprocContainer) launchInProc(ctxt context.Context, id string, args [
 //Start starts a previously registered system codechain
 func (vm *InprocVM) Start(ctxt context.Context, ccid ccintf.CCID, args []string, env []string, filesToUpload map[string][]byte, builder container.Builder) error {
 	path := ccid.GetName()
+
+	inprocLogger.Debugf("zmm: InprocVM Strat path: ", path)
 
 	ipctemplate := vm.registry.typeRegistry[path]
 

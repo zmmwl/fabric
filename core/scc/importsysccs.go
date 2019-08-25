@@ -49,7 +49,7 @@ func builtInSystemChaincodes(ccp ccprovider.ChaincodeProvider, p *Provider, aclP
 //DeploySysCCs is the hook for system chaincodes where system chaincodes are registered with the fabric
 //note the chaincode must still be deployed and launched like a user chaincode will be
 func (p *Provider) DeploySysCCs(chainID string, ccp ccprovider.ChaincodeProvider) {
-	for _, sysCC := range p.SysCCs {
+	for _, sysCC := range p.SysCCs {//zmm: 轮询部署系统链码scc
 		sysCC.deploySysCC(chainID, ccp)
 	}
 }

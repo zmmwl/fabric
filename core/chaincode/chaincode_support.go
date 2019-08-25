@@ -60,7 +60,7 @@ func NewChaincodeSupport(
 		UserRunsCC:      userRunsCC,
 		Keepalive:       config.Keepalive,
 		ExecuteTimeout:  config.ExecuteTimeout,
-		HandlerRegistry: NewHandlerRegistry(userRunsCC),
+		HandlerRegistry: NewHandlerRegistry(userRunsCC),//zmm: cc handler registry
 		ACLProvider:     aclProvider,
 		sccp:            sccp,
 	}
@@ -98,7 +98,9 @@ func NewChaincodeSupport(
 // error. If the chaincode is already running, it simply returns.
 func (cs *ChaincodeSupport) Launch(ctx context.Context, cccid *ccprovider.CCContext, spec ccprovider.ChaincodeSpecGetter) error {
 	cname := cccid.GetCanonicalName()
+	chaincodeLogger.Debugf("zmm: Launch cname: ",cname)
 	if cs.HandlerRegistry.Handler(cname) != nil {
+		chaincodeLogger.Debugf("zmm: Launch handler: ",cs.HandlerRegistry.Handler(cname))
 		return nil
 	}
 
@@ -114,6 +116,7 @@ func (cs *ChaincodeSupport) Launch(ctx context.Context, cccid *ccprovider.CCCont
 	// appropriate reference to ChaincodeSupport.
 	ctx = context.WithValue(ctx, ccintf.GetCCHandlerKey(), cs)
 
+	chaincodeLogger.Debugf("zmm: Invoke before cs.Launcher.Launch(ctx, cccid, spec) ")
 	return cs.Launcher.Launch(ctx, cccid, spec)
 }
 
@@ -209,6 +212,9 @@ func (cs *ChaincodeSupport) Execute(ctxt context.Context, cccid *ccprovider.CCCo
 // Invoke will invoke chaincode and return the message containing the response.
 // The chaincode will be launched if it is not already running.
 func (cs *ChaincodeSupport) Invoke(ctxt context.Context, cccid *ccprovider.CCContext, spec ccprovider.ChaincodeSpecGetter) (*pb.ChaincodeMessage, error) {
+
+
+	chaincodeLogger.Debugf("zmm: ChaincodeSupport.Invoke chaincode: ", cccid)
 	var cctyp pb.ChaincodeMessage_Type
 	switch spec.(type) {
 	case *pb.ChaincodeDeploymentSpec:
@@ -236,6 +242,7 @@ func (cs *ChaincodeSupport) Invoke(ctxt context.Context, cccid *ccprovider.CCCon
 		return nil, errors.WithMessage(err, "failed to create chaincode message")
 	}
 
+	chaincodeLogger.Debugf("zmm: ChaincodeSupport.Invoke is about to execute chaincode: ", cccid," ccMsg: ",ccMsg)
 	return cs.execute(ctxt, cccid, ccMsg)
 }
 

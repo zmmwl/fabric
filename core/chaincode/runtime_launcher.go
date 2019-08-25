@@ -37,11 +37,24 @@ type RuntimeLauncher struct {
 
 // Launch chaincode with the appropriate runtime.
 func (r *RuntimeLauncher) Launch(ctx context.Context, cccid *ccprovider.CCContext, spec ccprovider.ChaincodeSpecGetter) error {
+	chaincodeLogger.Debug("zmm: RuntimeLauncher.Launching...")
 	chaincodeID := spec.GetChaincodeSpec().ChaincodeId
+
+	switch spec.(type) {
+	case *pb.ChaincodeDeploymentSpec:
+		chaincodeLogger.Debug("zmm: RuntimeLauncher.Launch - spec is ChaincodeDeploymentSpec")
+	case *pb.ChaincodeInvocationSpec:
+		chaincodeLogger.Debug("zmm: RuntimeLauncher.Launch - spec is ChaincodeInvocationSpec")
+	default:
+		chaincodeLogger.Debug("zmm: RuntimeLauncher.Launch - spec is nothing")
+	}
+
 	cds, _ := spec.(*pb.ChaincodeDeploymentSpec)
 	if cds == nil {
+		chaincodeLogger.Debug("zmm: RuntimeLauncher.Launch - cds is nil")
+
 		var err error
-		cds, err = r.getDeploymentSpec(ctx, cccid, chaincodeID)
+		cds, err = r.getDeploymentSpec(ctx, cccid, chaincodeID) //zmm: TODO to see later
 		if err != nil {
 			return err
 		}
@@ -72,7 +85,7 @@ func (r *RuntimeLauncher) getDeploymentSpec(ctx context.Context, cccid *ccprovid
 		return nil, errors.Errorf("a syscc should be running (it cannot be launched) %s", cname)
 	}
 
-	cds, err := r.Lifecycle.GetChaincodeDeploymentSpec(ctx, cccid.TxID, cccid.SignedProposal, cccid.Proposal, cccid.ChainID, chaincodeID.Name)
+	cds, err := r.Lifecycle.GetChaincodeDeploymentSpec(ctx, cccid.TxID, cccid.SignedProposal, cccid.Proposal, cccid.ChainID, chaincodeID.Name)//zmm: TODO to see later
 	if err != nil {
 		return nil, errors.Wrapf(err, "failed to get deployment spec for %s", cname)
 	}

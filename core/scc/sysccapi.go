@@ -95,6 +95,7 @@ func (p *Provider) registerSysCC(syscc *SystemChaincode) (bool, error) {
 
 // deploySysCC deploys the given system chaincode on a chain
 func (syscc *SystemChaincode) deploySysCC(chainID string, ccprov ccprovider.ChaincodeProvider) error {
+	sysccLogger.Debug(fmt.Sprintf("zmm: system chaincode (%s,%s) for chainID: %s", syscc.Name, syscc.Path,chainID))
 	if !syscc.Enabled || !syscc.isWhitelisted() {
 		sysccLogger.Info(fmt.Sprintf("system chaincode (%s,%s) disabled", syscc.Name, syscc.Path))
 		return nil
@@ -103,6 +104,7 @@ func (syscc *SystemChaincode) deploySysCC(chainID string, ccprov ccprovider.Chai
 	txid := util.GenerateUUID()
 
 	ctxt := context.Background()
+	sysccLogger.Debug("zmm: SystemChaincode.deploySysCC ctxt: ", ctxt)
 	if chainID != "" {
 		lgr := peer.GetLedger(chainID)
 		if lgr == nil {
@@ -117,6 +119,7 @@ func (syscc *SystemChaincode) deploySysCC(chainID string, ccprov ccprovider.Chai
 		}
 
 		ctxt = ctxt2
+		sysccLogger.Debug("zmm: SystemChaincode.deploySysCC ctxt2: ", ctxt2)
 
 		defer txsim.Done()
 	}

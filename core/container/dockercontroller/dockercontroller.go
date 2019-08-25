@@ -216,6 +216,9 @@ func (vm *DockerVM) deployImage(client dockerClient, ccid ccintf.CCID,
 func (vm *DockerVM) Start(ctxt context.Context, ccid ccintf.CCID,
 	args []string, env []string, filesToUpload map[string][]byte, builder container.Builder) error {
 	imageName, err := vm.GetVMNameForDocker(ccid)
+
+	dockerLogger.Errorf("zmm: DockerVM Start imageName: ", imageName)
+
 	if err != nil {
 		return err
 	}
