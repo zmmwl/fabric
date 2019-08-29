@@ -491,7 +491,7 @@ func (h *Handler) HandleRegister(msg *pb.ChaincodeMessage) {
 }
 
 func (h *Handler) Notify(msg *pb.ChaincodeMessage) {
-	tctx := h.TXContexts.Get(msg.ChannelId, msg.Txid)
+	tctx := h.TXContexts.Get(msg.ChannelId, msg.Txid) //zmm: chaincode notify
 	if tctx == nil {
 		chaincodeLogger.Debugf("notifier Txid:%s, channelID:%s does not exist for handling message %s", msg.Txid, msg.ChannelId, msg.Type)
 		return

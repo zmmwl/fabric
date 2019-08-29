@@ -219,8 +219,10 @@ func (cs *ChaincodeSupport) Invoke(ctxt context.Context, cccid *ccprovider.CCCon
 	switch spec.(type) {
 	case *pb.ChaincodeDeploymentSpec:
 		cctyp = pb.ChaincodeMessage_INIT
+		chaincodeLogger.Debugf("zmm: ChaincodeSupport.Invoke *pb.ChaincodeDeploymentSpec")
 	case *pb.ChaincodeInvocationSpec:
 		cctyp = pb.ChaincodeMessage_TRANSACTION
+		chaincodeLogger.Debugf("zmm: ChaincodeSupport.Invoke *pb.ChaincodeInvocationSpec")
 	default:
 		return nil, errors.New("a deployment or invocation spec is required")
 	}

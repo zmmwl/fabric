@@ -54,6 +54,7 @@ func (c *TransactionContexts) Create(ctx context.Context, chainID, txID string, 
 	defer c.mutex.Unlock()
 
 	ctxID := contextID(chainID, txID)
+	chaincodeLogger.Debug("zmm: chainID(%s),txID(%s),ctxID",chainID,txID,ctxID)
 	if c.contexts[ctxID] != nil {
 		return nil, errors.Errorf("txid: %s(%s) exists", txID, chainID)
 	}
