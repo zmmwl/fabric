@@ -83,7 +83,7 @@ func (lc *LedgerCommitter) preCommit(block *common.Block) error {
 	return nil
 }
 
-// CommitWithPvtData commits blocks atomically with private data
+// CommitWithPvtData commits blocks atomically with private data //zmm: CommitWithPvtData
 func (lc *LedgerCommitter) CommitWithPvtData(blockAndPvtData *ledger.BlockAndPvtData, commitOpts *ledger.CommitOptions) error {
 	// Do validation and whatever needed before
 	// committing new block

@@ -212,6 +212,7 @@ func (e *Endorser) SanitizeUserCDS(userCDS *pb.ChaincodeDeploymentSpec) (*pb.Cha
 // SimulateProposal simulates the proposal by calling the chaincode
 func (e *Endorser) SimulateProposal(txParams *ccprovider.TransactionParams, cid *pb.ChaincodeID) (ccprovider.ChaincodeDefinition, *pb.Response, []byte, *pb.ChaincodeEvent, error) {
 	endorserLogger.Debugf("[%s][%s] Entry chaincode: %s", txParams.ChannelID, shorttxid(txParams.TxID), cid)
+	endorserLogger.Debugf("zmm: SimulateProposal - [%s][%s] Entry chaincode: %s", txParams.ChannelID, shorttxid(txParams.TxID), cid)
 	defer endorserLogger.Debugf("[%s][%s] Exit", txParams.ChannelID, shorttxid(txParams.TxID))
 	// we do expect the payload to be a ChaincodeInvocationSpec
 	// if we are supporting other payloads in future, this be glaringly point
@@ -462,10 +463,14 @@ func (e *Endorser) ProcessProposal(ctx context.Context, signedProp *pb.SignedPro
 	// Also obtain a history query executor for history queries, since tx simulator does not cover history
 	var txsim ledger.TxSimulator
 	var historyQueryExecutor ledger.HistoryQueryExecutor
+	fmt.Println("zmm: before acquireTxSimulator: chainID:",chainID," ChaincodeId:",vr.hdrExt.ChaincodeId)
 	if acquireTxSimulator(chainID, vr.hdrExt.ChaincodeId) {
+		fmt.Println("zmm: entering acquireTxSimulator: ",chainID," ChaincodeId:",vr.hdrExt.ChaincodeId)
 		if txsim, err = e.s.GetTxSimulator(chainID, txid); err != nil {
 			return &pb.ProposalResponse{Response: &pb.Response{Status: 500, Message: err.Error()}}, nil
 		}
+
+		fmt.Println("zmm: txsim is:",txsim,"  chainID:",chainID," - ",vr.hdrExt.ChaincodeId)
 
 		// txsim acquires a shared lock on the stateDB. As this would impact the block commits (i.e., commit
 		// of valid write-sets to the stateDB), we must release the lock as early as possible.

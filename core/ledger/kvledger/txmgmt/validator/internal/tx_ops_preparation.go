@@ -7,6 +7,7 @@ SPDX-License-Identifier: Apache-2.0
 package internal
 
 import (
+	"fmt"
 	"github.com/hyperledger/fabric/core/ledger/kvledger/txmgmt/privacyenabledstate"
 	"github.com/hyperledger/fabric/core/ledger/kvledger/txmgmt/rwsetutil"
 	"github.com/hyperledger/fabric/core/ledger/kvledger/txmgmt/statedb"
@@ -93,6 +94,7 @@ func (txops txOps) applyTxRwset(rwset *rwsetutil.TxRwSet) error {
 
 // applyKVWrite records upsertion/deletion of a kvwrite
 func (txops txOps) applyKVWrite(ns, coll string, kvWrite *kvrwset.KVWrite) {
+	fmt.Println("zmm: applyKVWrite ns:",ns," coll:",coll," kvWrite.Key:",kvWrite.Key," kvWrite.IsDelete:",kvWrite.IsDelete)
 	if kvWrite.IsDelete {
 		txops.delete(compositeKey{ns, coll, kvWrite.Key})
 	} else {
@@ -102,6 +104,8 @@ func (txops txOps) applyKVWrite(ns, coll string, kvWrite *kvrwset.KVWrite) {
 
 // applyMetadata records updatation/deletion of a metadataWrite
 func (txops txOps) applyMetadata(ns, coll string, metadataWrite *kvrwset.KVMetadataWrite) error {
+
+	fmt.Println("zmm: applyMetadata ns:",ns," coll:",coll," metadataWrite.Key:",metadataWrite.Key," metadataWrite.Entries:",metadataWrite.Entries)
 	if metadataWrite.Entries == nil {
 		txops.metadataDelete(compositeKey{ns, coll, metadataWrite.Key})
 	} else {

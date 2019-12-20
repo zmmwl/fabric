@@ -7,6 +7,7 @@ SPDX-License-Identifier: Apache-2.0
 package blocksprovider
 
 import (
+	"fmt"
 	"math"
 	"sync/atomic"
 	"time"
@@ -117,8 +118,10 @@ func (b *blocksProviderImpl) DeliverBlocks() {
 			logger.Warningf("[%s] Receive error: %s", b.chainID, err.Error())
 			return
 		}
+		fmt.Println("zmm: got DeliverBlocks")
 		switch t := msg.Type.(type) {
 		case *orderer.DeliverResponse_Status:
+			fmt.Println("zmm: DeliverBlock type is DeliverResponse_Status")
 			if t.Status == common.Status_SUCCESS {
 				logger.Warningf("[%s] ERROR! Received success for a seek that should never complete", b.chainID)
 				return
@@ -143,6 +146,7 @@ func (b *blocksProviderImpl) DeliverBlocks() {
 			b.client.Disconnect()
 			continue
 		case *orderer.DeliverResponse_Block:
+			fmt.Println("zmm: DeliverBlock type is DeliverResponse_Block")
 			errorStatusCounter = 0
 			statusCounter = 0
 			blockNum := t.Block.Header.Number

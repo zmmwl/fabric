@@ -705,6 +705,7 @@ func (x *atomicBroadcastDeliverClient) Send(m *common.Envelope) error {
 }
 
 func (x *atomicBroadcastDeliverClient) Recv() (*DeliverResponse, error) {
+	fmt.Println("zmm: atomicBroadcastDeliverClient recieve block")
 	m := new(DeliverResponse)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
